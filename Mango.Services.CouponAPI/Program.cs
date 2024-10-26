@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options=> 
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,5 +29,16 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+ApplyChanges();
 app.Run();
+
+void ApplyChanges()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbcontext =  scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        if (dbcontext?.Database.GetPendingMigrations().Count() > 0)
+            dbcontext.Database.Migrate();
+    }
+
+}
