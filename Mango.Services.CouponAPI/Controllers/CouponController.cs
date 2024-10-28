@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.CouponAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/Coupon")]
     [ApiController]
     public class CouponController(AppDbContext _dbContext, IMapper _mapper) : ControllerBase
     {
@@ -125,7 +126,7 @@ namespace Mango.Services.CouponAPI.Controllers
                 return BadRequest(generalResponse);
             }
         }
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public IActionResult RemoveCoupon(int id)
         {
             try

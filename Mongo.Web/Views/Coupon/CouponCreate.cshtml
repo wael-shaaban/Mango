@@ -1,0 +1,46 @@
+﻿@model CouponDTO
+
+<form asp-action="CouponCreate" asp-controller="Coupon" method="post">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">Create Coupon</h1>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-2">
+                <label asp-for="CouponCode" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CouponCode" class="form-control" />
+                <span asp-validation-for="CouponCode" class="text-danger"></span>
+            </div>
+
+            <div class="col-2">
+                <label asp-for="DiscountAmount" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="DiscountAmount" class="form-control" />
+                <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+            </div>
+
+            <div class="col-2">
+                <label asp-for="MinAmount" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="MinAmount" class="form-control" />
+                <span asp-validation-for="MinAmount" class="text-danger"></span>
+            </div>
+
+            <div class="col-5 offset-2">
+                <a class="btn btn-primary form-control" asp-action="CouponIndex" asp-controller="Coupon">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Create" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
