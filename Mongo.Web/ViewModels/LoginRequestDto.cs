@@ -1,4 +1,13 @@
-﻿namespace Mongo.Web.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mongo.Web.ViewModels
 {
-    public record LoginRequestDto(string UserName, string Password);
+    public class LoginRequestDto
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+    }
 }

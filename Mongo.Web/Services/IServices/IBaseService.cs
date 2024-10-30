@@ -4,6 +4,6 @@ namespace Mongo.Web.Services.IServices
 {
     public interface IBaseService
     {
-        Task<GeneralResponseDTO?> SendAsync(RequestDTO requestDTO);
+        Task<GeneralResponseDTO?> SendAsync(RequestDTO requestDTO,bool withJwtBrearer = true);
     }
 }

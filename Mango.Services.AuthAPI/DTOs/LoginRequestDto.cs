@@ -1,4 +1,6 @@
-﻿namespace Mango.Services.AuthAPI.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mango.Services.AuthAPI.DTOs
 {
-    public record LoginRequestDto(string UserName, string Password);
+    public record LoginRequestDto([Required]string UserName, [Required]string Password);
 }

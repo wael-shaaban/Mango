@@ -16,22 +16,25 @@ namespace Mango.Services.AuthAPI.Services
         public async Task<LoginResponseDto> Login(LoginRequestDto requestDto)
         {
             //var userExist = await userManager.FindByEmailAsync(requestDto.UserName.ToLower());
-            var userExist = await appDbContext.AppUsers.FirstAsync(c => c.Email.ToLower() == requestDto.UserName.ToLower());
+            var userExist = await appDbContext.AppUsers.FirstOrDefaultAsync(c => c.Email.ToLower() == requestDto.UserName.ToLower());
             if (userExist is not null && await userManager.CheckPasswordAsync(userExist, requestDto.Password))
             {
-                return new LoginResponseDto(new UserDto
+                var roles =await userManager.GetRolesAsync(userExist);
+                return new LoginResponseDto(
+                    User:
+                    new UserDto
                     {
                         Address = userExist.Address,
                         Email = userExist.Email,
                         ID = userExist.Id,
                         Name = userExist.FName + " " + userExist.LName,
                         PhoneNumber = userExist.PhoneNumber
-                    }, jwtGeneratorService.GenerateToken(userExist));
+                    },
+                   Token:
+                   jwtGeneratorService.GenerateToken(userExist,roles));
             }
             else
-            {
                 return new LoginResponseDto(null, string.Empty);
-            }
         }
 
         public async Task<string> Register(RegisterationRequestDto requestDto)
@@ -74,38 +77,41 @@ namespace Mango.Services.AuthAPI.Services
                         return errors.ToString();
                     }
                 }
+                errors.AppendLine("user is aleadey exist");
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
+            if(errors.Length > 0)
+                return errors.ToString();   
             return string.Empty;
         }
 
-        public async Task<string> AddRole(string userName, string roleName)
+        public  async Task<string> AddRole(string email, string roleName)
         {
             StringBuilder errors = new StringBuilder();
-            var userExist = await appDbContext.AppUsers.FirstOrDefaultAsync(c => c.UserName == userName);
+            var userExist = appDbContext.AppUsers.FirstOrDefault(c => c.Email.ToLower() == email.ToLower());
             if (userExist is not null)
             {
-                if (!await roleManager.RoleExistsAsync(roleName))
-                {
-                    var result = await roleManager.CreateAsync(new IdentityRole { Name = roleName });
-                    if (result.Succeeded)
-                    {
-                        var resutl2 = await userManager.AddToRoleAsync(userExist, roleName);
-                        if (resutl2.Succeeded)
-                        {
-                            return string.Empty;
-                        }
-                        foreach (var error in resutl2.Errors)
-                            errors.AppendLine(error.Description);
-                    }
-                    foreach (var error in result.Errors)
+                IdentityResult result = default;
+                if (!roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                    result = roleManager.CreateAsync(new IdentityRole { Name = roleName }).GetAwaiter().GetResult();
+                //if (result?.Succeeded==true)
+                //{
+                var result2 = await userManager.AddToRoleAsync(userExist, roleName);
+                    if (result2.Succeeded)
+                        return string.Empty;
+                    foreach (var error in result2?.Errors)
                         errors.AppendLine(error.Description);
-                }
+                //}
+                //foreach (var error in result?.Errors)
+                //    errors.AppendLine(error.Description);
             }
-            return errors.ToString();
+           
+            if (errors.Length > 0)
+                return errors.ToString();
+            return string.Empty;
         }
     }
 }

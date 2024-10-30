@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mongo.Web.Services.IServices;
 using Mongo.Web.ViewModels;
 using Newtonsoft.Json;
@@ -77,6 +78,13 @@ namespace Mongo.Web.Controllers
                 else TempData["error"] = result.Message;
             }
             return View(couponDTO);
+        }
+        [HttpGet("debug")]
+        [Authorize]
+        public IActionResult DebugUserRoles()
+        {
+            var claims = User.Claims.Select(c => new { c.Type, c.Value });
+            return Ok(claims);
         }
     }
 }

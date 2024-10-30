@@ -10,8 +10,7 @@ namespace Mango.Services.AuthAPI.Services
 {
     public class JwtGeneratorService(IOptions<JwtOptions> options) : IJwtGeneratorService
     {
-
-        public string GenerateToken(AppUser appUser)
+        public string GenerateToken(AppUser appUser,IEnumerable<string> roles)
         {
             var jwtOptions = options.Value;
             var secret = jwtOptions.Secret;
@@ -21,9 +20,19 @@ namespace Mango.Services.AuthAPI.Services
                 throw new ApplicationException("Jwt is not set in the configuration");
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var tokenHandler = new JwtSecurityTokenHandler();
+            var claimList = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Email, appUser.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, appUser.Id),
+                new Claim(JwtRegisteredClaimNames.Name, appUser.UserName)
+            };
+            //foreach (var role in roles)
+            //    claimList.Add(new Claim("Role", role));
+            //claimList.Union(roles.Select(role => new Claim("Role", role)));
+            claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, appUser.Email) }),
+                Subject = new ClaimsIdentity(claimList),
                 Expires = DateTime.UtcNow.AddDays(1),
                 Issuer = issuer,
                 Audience = audience,
