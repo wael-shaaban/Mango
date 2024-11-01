@@ -6,9 +6,9 @@ namespace Mongo.Web.Services
 {
     public class ProductService(IBaseService _baseService) : IProductService
     {
-        public Task<GeneralResponseDTO?> CreateProductAsync(ProductDTO newProduct)
+        public async Task<GeneralResponseDTO?> CreateProductAsync(ProductDTO newProduct)
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.POST,
                 Url = SD.ProductApiBaseUrl + "/api/Product/",
@@ -16,45 +16,45 @@ namespace Mongo.Web.Services
             });
         }
 
-        public Task<GeneralResponseDTO?> DeleteProductAsync(int productId)
+        public async Task<GeneralResponseDTO?> DeleteProductAsync(int productId)
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.DELETE,
                 Url = SD.ProductApiBaseUrl + "/api/Product/" + productId
             });
         }
 
-        public Task<GeneralResponseDTO?> GetAllProductsAsync()
+        public async Task<GeneralResponseDTO?> GetAllProductsAsync()
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.GET,
                 Url = SD.ProductApiBaseUrl + "/api/Product"
             });
         }
 
-        public Task<GeneralResponseDTO?> GetProductAsync(string productName)
+        public async Task<GeneralResponseDTO?> GetProductAsync(string productName)
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.GET,
                 Url = SD.ProductApiBaseUrl + "/api/Product/GetByName/" + productName
             });
         }
 
-        public Task<GeneralResponseDTO?> GetProductByIdAsync(int productId)
+        public async Task<GeneralResponseDTO?> GetProductByIdAsync(int productId)
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.GET,
                 Url = SD.ProductApiBaseUrl + "/api/Product/" + productId
             });
         }
 
-        public Task<GeneralResponseDTO?> UpdateProductAsync(ProductDTO product)
+        public async Task<GeneralResponseDTO?> UpdateProductAsync(ProductDTO product)
         {
-            return _baseService.SendAsync(new RequestDTO
+            return await _baseService.SendAsync(new RequestDTO
             {
                 ApiType = SD.ApiType.PUT,
                 Url = SD.ProductApiBaseUrl + "/api/Product/",

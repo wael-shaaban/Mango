@@ -11,7 +11,7 @@ namespace Mango.Services.CouponAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/Coupon")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CouponController(AppDbContext _dbContext, IMapper _mapper) : ControllerBase
     {
         protected GeneralResponseDTO generalResponse = new GeneralResponseDTO();
