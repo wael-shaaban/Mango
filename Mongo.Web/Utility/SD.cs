@@ -4,6 +4,8 @@
     {
         public static string CouponApiBaseUrl { get; set; }
         public static string AuthApiBaseUrl { get; set; }
+        public static string ProductApiBaseUrl { get; set; }
+        public static string ShoopingCartApiUrl { get; set; }
         public static string RoleAdmin = "Admin";
         public static string RoleCustomer = "Customer";
         public static string TokenCookie = "JwtCookie";

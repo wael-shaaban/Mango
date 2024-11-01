@@ -13,11 +13,15 @@ builder.Services.AddHttpClient();//for code
 builder.Services.AddScoped<ITokeProvider, TokeProvider>();
 builder.Services.AddHttpClient<ICouponService,CouponService>();//for client
 builder.Services.AddHttpClient<IAuthService, AuthService>();//for client
+builder.Services.AddHttpClient<IProductService, ProductService>();//for client
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();    
 builder.Services.AddScoped<IAuthService,AuthService>();	
+builder.Services.AddScoped<IProductService,ProductService>();	
 SD.CouponApiBaseUrl = builder?.Configuration["ServiceUrls:CouponApiUrl"];
 SD.AuthApiBaseUrl = builder?.Configuration["ServiceUrls:AuthApiUrl"];
+SD.ProductApiBaseUrl = builder?.Configuration["ServiceUrls:ProductApiUrl"];
+SD.ShoopingCartApiUrl = builder?.Configuration["ServiceUrls:ShoopingCartApiUrl"];
 builder.Services.AddHttpClient("MangoAPI")
 	.ConfigurePrimaryHttpMessageHandler(() =>
 	{
