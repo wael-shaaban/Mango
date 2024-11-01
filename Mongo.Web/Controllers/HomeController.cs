@@ -1,21 +1,47 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mongo.Web.Models;
+using Mongo.Web.Services;
+using Mongo.Web.Services.IServices;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace Mongo.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IProductService productService,ILogger<HomeController> _logger) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public async Task<IActionResult> Index()
         {
-            _logger = logger;
+            List<ProductDTO> products = new();
+            GeneralResponseDTO result = await productService?.GetAllProductsAsync();
+            if (result is not null)
+            {
+                if (result.Success)
+                {
+                    TempData["success"] = "Getting all products successfully!";
+                    products = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(result.Data));
+                }
+                else
+                    TempData["error"] = result.Message;
+            }
+            return View(products);
         }
-
-        public IActionResult Index()
+        [Authorize]
+          public async Task<IActionResult> Details(int productId)
         {
-            return View();
+            ProductDTO product = new();
+            GeneralResponseDTO result = await productService?.GetProductByIdAsync(productId);
+            if (result is not null)
+            {
+                if (result.Success)
+                {
+                    TempData["success"] = "Getting all products successfully!";
+                    product = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(result.Data));
+                }
+                else
+                    TempData["error"] = result.Message;
+            }
+            return View(product);
         }
 
         public IActionResult Privacy()
