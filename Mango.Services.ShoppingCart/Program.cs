@@ -1,8 +1,14 @@
 using Mango.Services.ShoppingCartAPI.Data;
 using Mango.Services.ShoppingCartAPI.Extensions;
+using Mango.Services.ShoppingCartAPI.Services;
+using Mango.Services.ShoppingCartAPI.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Polly;
+using Polly.Extensions.Http;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +18,15 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+
+var productUrl = builder.Configuration["ServiceUrls:ProductApiUrl"];
+builder.AddCustomhttpClient(client:"Product",url: productUrl);
+var couponApiUrl = builder.Configuration["ServiceUrls:CouponApiUrl"];
+builder.AddCustomhttpClient(client:"Coupon", url:couponApiUrl);
+
+
 builder.AddJwtConfiguration();
 //builder.Services.AddAuthorization();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,6 +1,5 @@
-﻿using Mango.Services.ShoppingCartAPI.Models;
-using System.Text.Json.Serialization;
-namespace Mango.Services.ShoppingCartAPI.DTOs
+﻿using System.Text.Json.Serialization;
+namespace Mongo.Web.ViewModels
 {
     public class CartDetailsDto
     {

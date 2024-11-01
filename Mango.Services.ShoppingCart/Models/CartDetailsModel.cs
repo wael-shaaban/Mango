@@ -18,3 +18,20 @@ namespace Mango.Services.ShoppingCartAPI.Models
         public int Count { get; set; }
     }
 }
+/*{
+  "cartHeader": {
+    "cartHeaderId": 0,
+    "userId": "11111111111111111",
+    "couponCode": "",
+    "discount": 0,
+    "cartTotal": 122
+  },
+  "cartDetails": [
+    {
+      "cartDetailsId": 0,
+      "cartHeaderId": 0,
+      "productId": 3,
+      "count": 33
+    }
+  ]
+}*/
