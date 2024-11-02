@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using Polly;
 using Polly.Extensions.Http;
 using System.Net;
-
+using Mango.ServiceBusClient;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,6 +27,7 @@ var productUrl = builder.Configuration["ServiceUrls:ProductApiUrl"];
 builder.AddCustomhttpClient(client:"Product",url: productUrl);
 var couponApiUrl = builder.Configuration["ServiceUrls:CouponApiUrl"];
 builder.AddCustomhttpClient(client:"Coupon", url:couponApiUrl);
+builder.Services.AddRabbitMQService(builder.Configuration);
 
 
 builder.AddJwtConfiguration();

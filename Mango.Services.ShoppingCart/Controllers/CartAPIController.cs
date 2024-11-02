@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mango.ServiceBusClient;
 using Mango.Services.ShoppingCartAPI.Data;
 using Mango.Services.ShoppingCartAPI.DTOs;
 using Mango.Services.ShoppingCartAPI.Models;
@@ -6,6 +7,7 @@ using Mango.Services.ShoppingCartAPI.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Reflection.PortableExecutable;
 
 namespace Mango.Services.ShoppingCartAPI.Controllers
@@ -14,7 +16,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
     [Route("api/cart")]
     [ApiController]
     public class CartAPIController(AppDbContext dbContext, IMapper mapper,
-        IProductService productService, ICouponService couponService) : ControllerBase
+        IProductService productService, ICouponService couponService,IRabbitMQService rabbitMQService) : ControllerBase
     {
         protected GeneralResponseDTO generalResponseDTO = new GeneralResponseDTO();
         [HttpGet("GetCart/{userId}")]
@@ -142,6 +144,24 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             }
             return generalResponseDTO;
         }
+        [HttpPost("EmailCartRequest")]
+        public async Task<GeneralResponseDTO> EmailCartRequest(CartDto cartDto)
+        {
+            try
+            {
+                rabbitMQService.PublishMessage(JsonConvert.SerializeObject(cartDto));
+                generalResponseDTO.Success = true;
+            }
+            catch (Exception ex)
+            {
+                generalResponseDTO.Message = ex.Message;
+            }
+            finally
+            {
+                rabbitMQService.Dispose();
+            }
+            return generalResponseDTO;
+        }
         [HttpPost("ApplyCoupon")]
         public async Task<GeneralResponseDTO> ApplyCoupon(CartDto cartDto)
         {
@@ -190,3 +210,23 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         */
     }
 }
+/*public string GetSingleMessage(string queueName)
+{
+    var factory = new ConnectionFactory { HostName = "localhost" };
+    using var connection = factory.CreateConnection();
+    using var channel = connection.CreateModel();
+
+    var result = channel.BasicGet(queue: queueName, autoAck: true);
+    if (result != null)
+    {
+        var message = Encoding.UTF8.GetString(result.Body.ToArray());
+        Console.WriteLine($"Single message: {message}");
+        return message;
+    }
+    else
+    {
+        Console.WriteLine("No message found.");
+        return null;
+    }
+}
+*/

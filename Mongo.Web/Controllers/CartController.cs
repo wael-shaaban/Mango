@@ -29,6 +29,25 @@ namespace Mongo.Web.Controllers
             return View();
         }
          [HttpPost]
+        public async Task<IActionResult> EmailCart(CartDto cartDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = await LoadCartDtoBasedLoggedInUser();
+                cart.CartHeader.Email = User.Claims.Where(c => c.Type == JwtRegisteredClaimNames.Email)?.FirstOrDefault()?.Value;
+                
+                var resonseDto = await cartService.CartEmail(cart);
+                if (resonseDto is not null && resonseDto.Success)
+                {
+                    TempData["success"] = "email will be processes and sent sholry!";
+                    return RedirectToAction(nameof(CartIndex));
+                }
+            }
+            return View();
+        }
+        
+
+         [HttpPost]
         public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
         {
             if (ModelState.IsValid)
