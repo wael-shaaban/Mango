@@ -1,6 +1,7 @@
 ﻿using Polly.Extensions.Http;
 using Polly;
 using System.Net;
+using Mango.Services.ShoppingCartAPI.Utility;
 
 namespace Mango.Services.ShoppingCartAPI.Extensions
 {
@@ -11,7 +12,8 @@ namespace Mango.Services.ShoppingCartAPI.Extensions
             builder.Services.AddHttpClient(client, options =>
             {
                 options.BaseAddress = new Uri(url);
-            }).ConfigurePrimaryHttpMessageHandler(() =>
+            }).AddHttpMessageHandler<BackendApiAuthenticationHttpClienHandler>()
+            .ConfigurePrimaryHttpMessageHandler(() =>
             {
                 return new HttpClientHandler
                 {

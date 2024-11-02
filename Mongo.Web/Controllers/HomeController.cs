@@ -53,7 +53,7 @@ namespace Mongo.Web.Controllers
             {
                 CartHeader = new CartHeaderDto
                 {
-                    UserId = User.Claims.Where(c => c.Type == JwtClaimTypes.Subject)?.FirstOrDefault()?.Value;
+                    UserId = User.Claims.Where(c => c.Type == JwtClaimTypes.Subject)?.FirstOrDefault()?.Value
                 }
             };
             CartDetailsDto cartDetailsDto = new()
@@ -66,7 +66,7 @@ namespace Mongo.Web.Controllers
                 cartDetailsDto
             };
            cartDto.CartDetails = listofCartDetials;
-            GeneralResponseDTO result = await cartService?.GetCartByUserIdAsync(cartDto.CartHeader.UserId);
+            GeneralResponseDTO result = await cartService?.UpsertCartAsync(cartDto);
             if (result is not null)
             {
                 if (result.Success)
@@ -77,7 +77,7 @@ namespace Mongo.Web.Controllers
                 else
                     TempData["error"] = result.Message;
             }
-            return View(cartDto);
+            return View(productDto);
         }
 
         public IActionResult Privacy()

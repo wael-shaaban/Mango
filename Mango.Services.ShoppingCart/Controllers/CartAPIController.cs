@@ -22,42 +22,37 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                CartDto cart = new();
-                var cartHeader = await dbContext.CartHeaders.FirstOrDefaultAsync(c => c.UserId == userId);
-                if (cartHeader is not null)
+                CartDto cart = new()
                 {
-                    var cartDetailsCollection = dbContext.CartDetails.Where(c => c.CartHeaderId == cartHeader.CartHeaderId).ToList();
-                    if (cartDetailsCollection is not null)
-                    {
-                        cart.CartHeader = mapper.Map<CartHeaderDto>(cartHeader);
-                        cart.CartDetails = mapper.Map<List<CartDetailsDto>>(cartDetailsCollection);
-                        var products = await productService.GetProductsAsync();
-                        foreach (var item in cart?.CartDetails)
-                        {
-                            item.Product = products.FirstOrDefault(p => p.ProductId == item.ProductId);
-                            if (item.Product is not null)
-                            {
-                                item.CartHeader.CartTotal += (decimal)item?.Product?.Price * item.Count;
-                            }
-                        }
-                    }
-                    //apply coupon if any
-                    if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
-                    {
-                        var coupon = await couponService.GetCoupon(cart.CartHeader.CouponCode);
-                        if (coupon is not null && cart.CartHeader.CartTotal > coupon.MinAmount)
-                        {
-                            cart.CartHeader.CartTotal -= (decimal)coupon.DiscountAmount;
-                            cart.CartHeader.Discount = (decimal)coupon.DiscountAmount;
-                        }
-                    }
-                    generalResponseDTO.Success = true;
-                    generalResponseDTO.Data = cart;
-                }
-                else
+                    CartHeader = mapper.Map<CartHeaderDto>(dbContext.CartHeaders.First(c => c.UserId == userId))
+
+                };
+                cart.CartHeader.CartTotal = 0;
+                //  var cartDetailsCollection = dbContext.CartDetails.Where(c => c.CartHeaderId == cartHeader.CartHeaderId).ToList();
+
+                cart.CartDetails = mapper.Map<List<CartDetailsDto>>
+                (dbContext.CartDetails.Where(c => c.CartHeaderId == cart.CartHeader.CartHeaderId));
+                var products = await productService.GetProductsAsync();
+                foreach (var item in cart?.CartDetails)
                 {
-                    generalResponseDTO.Message = "Item not found!";
+                    item.Product = products.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    if (item.Product is not null)
+                    {
+                        cart.CartHeader.CartTotal += (((decimal)item?.Product?.Price) * item.Count);
+                    }
                 }
+                //apply coupon if any
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                {
+                    var coupon = await couponService.GetCoupon(cart.CartHeader.CouponCode);
+                    if (coupon is not null && cart.CartHeader.CartTotal > coupon.MinAmount)
+                    {
+                        cart.CartHeader.CartTotal -= (decimal)coupon.DiscountAmount;
+                        cart.CartHeader.Discount = (decimal)coupon.DiscountAmount;
+                    }
+                }
+                generalResponseDTO.Success = true;
+                generalResponseDTO.Data = cart;
             }
             catch (Exception ex)
             {
@@ -91,12 +86,12 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                     var cartdetailfromdb = await dbContext.CartDetails.AsNoTracking().FirstOrDefaultAsync
                         (
                           c => c.ProductId == cartDto.CartDetails.First().ProductId &&
-                          c.CartHeaderId == cartDto.CartHeader.CartHeaderId
+                          c.CartHeaderId == cartHeaderDto.CartHeaderId
                         );
                     if (cartdetailfromdb is null)
                     {
                         //add details
-                        cartDto.CartDetails.First().CartHeaderId = cartdetailfromdb.CartHeaderId;
+                        cartDto.CartDetails.First().CartHeaderId = cartHeaderDto.CartHeaderId;
                         dbContext.CartDetails.Add(mapper.Map<CartDetailsModel>(cartDto.CartDetails.First()));
                         await dbContext.SaveChangesAsync();
                     }
