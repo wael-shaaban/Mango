@@ -15,7 +15,7 @@ namespace Mango.ServiceBusClient
             // Register the RabbitMQ settings
             services.Configure<RabbitMQSettings>(configuration.GetSection("RabbitMQ"));
             // Register RabbitMQService
-            services.AddScoped<IRabbitMQService,RabbitMQService>();
+            services.AddSingleton<IRabbitMQService,RabbitMQService>();
 
             return services;
         }

@@ -19,7 +19,8 @@ namespace Mango.ServiceBusClient
                 HostName = _settings.HostName,
                 Port = _settings.Port,
                 UserName = _settings.UserName,
-                Password = _settings.Password
+                Password = _settings.Password,
+                ClientProvidedName = _settings.ClientProvidedName
             };
 
             _connection = factory.CreateConnection();
