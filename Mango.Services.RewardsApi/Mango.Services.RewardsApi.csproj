@@ -15,16 +15,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" /> 
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="services\couponService\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Mango.Services.JwtConfigurations\Mango.Services.JwtConfigurations.csproj" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
 
 </Project>

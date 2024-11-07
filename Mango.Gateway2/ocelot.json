@@ -1,0 +1,508 @@
+{
+  "GlobalConfiguration": {
+    "HttpClient": {
+      "Handler": "Ocelot.Middleware.HttpClientHandler"
+    },
+    "BaseUrl": "https://localhost:7112"
+  },
+  "Routes": [
+    //"ProductAPI": "https://localhost:5003",
+    {
+      "DownstreamPathTemplate": "/api/Product",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7000
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Products",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ]
+}
+
+//{
+//  "GlobalConfiguration": {
+//    "BaseUrl": "https://localhost:7112"
+//    //"FileCacheOptions": {
+//    //  "TtlSeconds": 60,
+//    //  "Region": "Default"
+//    //}
+//  },
+//  "Routes": [
+//    //"ProductAPI": "https://localhost:5003",
+//    {
+//      "DownstreamPathTemplate": "/api/Product",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7000
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/gateway/Products",
+//      "UpstreamHttpMethod": [ "Get" ]//,
+//      //"AuthenticationOptions": {
+//      //  "AuthenticationProviderKey": "Bearer"
+//      //}
+//      //,
+//      //"RouteClaimsRequirement": {
+//      //  "Role": "Admin"
+//      //}
+//      //,
+//      //"RateLimitOptions": {
+//      //  "ClientWhitelist": [],
+//      //  "EnableRateLimiting": true,
+//      //  "Period": "1m",
+//      //  "PeriodTimespan": 5,
+//      //  "Limit": 20
+//      //},
+//      //"FileCacheOptions": {
+//      //  "TtlSeconds": 30,
+//      //  "Region": "Default"
+//      //}
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/Product/{id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7000
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Product/{id}",
+//      "UpstreamHttpMethod": [ "Get", "DELETE" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/Product",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7000
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Product",
+//      "UpstreamHttpMethod": [ "POST", "PUT" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+
+//    //"CouponAPI": "https://localhost:7001",
+//    {
+//      "DownstreamPathTemplate": "/api/Coupon",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Coupon",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/Coupon/GetByCode/{code}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Coupon/GetByCode/{code}",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/Coupon/{id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Coupon/{id}",
+//      "UpstreamHttpMethod": [ "Get", "DELETE" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/Coupon",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/Coupon",
+//      "UpstreamHttpMethod": [ "POST", "PUT" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+
+//    //"ShoppingCartAPI": "https://localhost:7003",
+//    {
+//      "DownstreamPathTemplate": "/api/cart/GetCart/{id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7003
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/cart/GetCart/{id}",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/cart/RemoveCart",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7003
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/cart/RemoveCart",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/cart/CartUpsert",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7003
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/cart/CartUpsert",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/cart/EmailCartRequest",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7003
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/cart/EmailCartRequest",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/cart/ApplyCoupon",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7003
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/cart/ApplyCoupon",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+
+//    //"OrderAPI": "https://localhost:7004",
+//    {
+//      "DownstreamPathTemplate": "/api/order/GetOrders?userId={id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/GetOrders/{id}",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/GetOrders?userId=''",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/GetOrders/",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/GetOrder/{id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/GetOrder/{id}",
+//      "UpstreamHttpMethod": [ "Get" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/UpdateOrderStatus/{id}",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/UpdateOrderStatus/{id}",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/ValidateStripeSession",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/ValidateStripeSession",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/CreateStripeSession",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/CreateStripeSession",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    },
+//    {
+//      "DownstreamPathTemplate": "/api/order/CreateOrder",
+//      "DownstreamScheme": "https",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 7004
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/api/order/CreateOrder",
+//      "UpstreamHttpMethod": [ "POST" ],
+//      "RateLimitOptions": {
+//        "ClientWhitelist": [],
+//        "EnableRateLimiting": true,
+//        "Period": "1m",
+//        "PeriodTimespan": 5,
+//        "Limit": 20
+//      },
+//      "AuthenticationOptions": {
+//        "AuthenticationProviderKey": "Bearer"
+//      }
+//    }//,
+//    //{
+//    //  "DownstreamPathTemplate": "/api/auth/register",
+//    //  "DownstreamScheme": "https",
+//    //  "DownstreamHostAndPorts": [
+//    //    {
+//    //      "Host": "localhost",
+//    //      "Port": 7002
+//    //    }
+//    //  ],
+//    //  "UpstreamPathTemplate": "/api/OAuth/Register",
+//    //  "UpstreamHttpMethod": [ "POST" ],
+//    //  "RateLimitOptions": {
+//    //    "ClientWhitelist": [],
+//    //    "EnableRateLimiting": true,
+//    //    "Period": "1m",
+//    //    "PeriodTimespan": 5,
+//    //    "Limit": 20
+//    //  }
+//    //},
+//    //{
+//    //  "DownstreamPathTemplate": "/api/auth/login",
+//    //  "DownstreamScheme": "https",
+//    //  "DownstreamHostAndPorts": [
+//    //    {
+//    //      "Host": "localhost",
+//    //      "Port": 7002
+//    //    }
+//    //  ],
+//    //  "UpstreamPathTemplate": "/api/OAuth/Login",
+//    //  "UpstreamHttpMethod": [ "POST" ],
+//    //  "RateLimitOptions": {
+//    //    "ClientWhitelist": [],
+//    //    "EnableRateLimiting": true,
+//    //    "Period": "1m",
+//    //    "PeriodTimespan": 5,
+//    //    "Limit": 20
+//    //  }
+//    //}
+
+
+
+
+
+
+
+//  ]
+//}

@@ -1,18 +1,13 @@
 using Mango.Services.CouponAPI.Data;
-using Mango.Services.CouponAPI.Extensions;
-using Mango.Services.CouponAPI.Models;
+using Mango.Services.JwtConfigurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Security.Claims;
-using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(options=> 
+builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
@@ -46,7 +41,7 @@ builder.Services.AddSwaggerGen(option =>
                     Id = JwtBearerDefaults.AuthenticationScheme
                 }
             },
-            new string[] {}  
+            new string[] {}
         }
     });
 });
@@ -72,7 +67,7 @@ void ApplyChanges()
 {
     using (var scope = app.Services.CreateScope())
     {
-        var dbcontext =  scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var dbcontext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         if (dbcontext?.Database.GetPendingMigrations().Count() > 0)
             dbcontext.Database.Migrate();
     }

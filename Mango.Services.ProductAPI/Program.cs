@@ -1,9 +1,8 @@
+using Mango.Services.JwtConfigurations;
 using Mango.Services.ProductAPI.Data;
-using Mango.Services.ProductAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

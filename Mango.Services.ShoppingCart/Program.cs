@@ -1,3 +1,5 @@
+using Mango.ServiceBusClient;
+using Mango.Services.JwtConfigurations;
 using Mango.Services.ShoppingCartAPI.Data;
 using Mango.Services.ShoppingCartAPI.Extensions;
 using Mango.Services.ShoppingCartAPI.Services;
@@ -5,12 +7,7 @@ using Mango.Services.ShoppingCartAPI.Services.IServices;
 using Mango.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Polly;
-using Polly.Extensions.Http;
-using System.Net;
-using Mango.ServiceBusClient;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,9 +21,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClienHandler>();
 var productUrl = builder.Configuration["ServiceUrls:ProductApiUrl"];
-builder.AddCustomhttpClient(client:"Product",url: productUrl);
+builder.AddCustomhttpClient(client: "Product", url: productUrl);
 var couponApiUrl = builder.Configuration["ServiceUrls:CouponApiUrl"];
-builder.AddCustomhttpClient(client:"Coupon", url:couponApiUrl);
+builder.AddCustomhttpClient(client: "Coupon", url: couponApiUrl);
 builder.Services.AddRabbitMQService(builder.Configuration);
 
 

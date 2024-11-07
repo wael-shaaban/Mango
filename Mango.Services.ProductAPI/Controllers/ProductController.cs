@@ -16,6 +16,7 @@ namespace Mango.Services.ProductAPI.Controllers
     {
         protected GeneralResponseDTO generalResponse = new GeneralResponseDTO();
         [HttpGet]
+        [Authorize]
         public GeneralResponseDTO GetAllProducts()
         {
             try
