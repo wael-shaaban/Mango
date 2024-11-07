@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mango.ServiceBusClient\Mango.ServiceBusClient.csproj" />
+    <ProjectReference Include="..\Mango.Services.JwtConfigurations\Mango.Services.JwtConfigurations.csproj" />
   </ItemGroup>
 
 </Project>
