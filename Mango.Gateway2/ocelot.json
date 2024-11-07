@@ -17,7 +17,7 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/Products",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

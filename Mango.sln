@@ -11,13 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{96ADB587-1CAF-46D3-96AE-5E574204C7EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.CouponAPI", "Mango.Services.CouponAPI\Mango.Services.CouponAPI.csproj", "{9987EF45-0829-438D-A165-EE376FA325F9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mongo.Web", "Mongo.Web\Mongo.Web.csproj", "{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.AuthAPI", "Mango.Services.AuthAPI\Mango.Services.AuthAPI.csproj", "{6FE44F00-D444-4D81-8C9E-1EA47883D64B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.ProductAPI", "Mango.Services.ProductAPI\Mango.Services.ProductAPI.csproj", "{6F3B75B6-15BE-4154-BF06-628DE278339D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drafts", "Drafts", "{68CDE2D1-B38D-45E9-BCB8-B5ABBFF2A466}"
 	ProjectSection(SolutionItems) = preProject
@@ -50,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mango.Services.ShoppingCart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.JwtConfigurations", "Mango.Services.JwtConfigurations\Mango.Services.JwtConfigurations.csproj", "{2359DE2A-CE31-45DA-AAE0-4F4C669A3FBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Gateway2", "Mango.Gateway2\Mango.Gateway2.csproj", "{68294217-F27F-4223-B659-D30ED4B826F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Gateway2", "Mango.Gateway2\Mango.Gateway2.csproj", "{68294217-F27F-4223-B659-D30ED4B826F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,22 +52,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9987EF45-0829-438D-A165-EE376FA325F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9987EF45-0829-438D-A165-EE376FA325F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9987EF45-0829-438D-A165-EE376FA325F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9987EF45-0829-438D-A165-EE376FA325F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FE44F00-D444-4D81-8C9E-1EA47883D64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FE44F00-D444-4D81-8C9E-1EA47883D64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FE44F00-D444-4D81-8C9E-1EA47883D64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FE44F00-D444-4D81-8C9E-1EA47883D64B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F3B75B6-15BE-4154-BF06-628DE278339D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F3B75B6-15BE-4154-BF06-628DE278339D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F3B75B6-15BE-4154-BF06-628DE278339D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F3B75B6-15BE-4154-BF06-628DE278339D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98050F1F-F44E-4202-8F50-E536FEDF1E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98050F1F-F44E-4202-8F50-E536FEDF1E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98050F1F-F44E-4202-8F50-E536FEDF1E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +89,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9987EF45-0829-438D-A165-EE376FA325F9} = {B49C3962-664F-4D8E-90F7-75E088F1AE82}
 		{C5C434B3-8A1C-48FB-8A09-AD47887A6DF9} = {EF6635FC-86B4-4010-AE30-612C21FFD962}
-		{6FE44F00-D444-4D81-8C9E-1EA47883D64B} = {891CF902-E9AA-494F-82C4-BDBACCB2074C}
-		{6F3B75B6-15BE-4154-BF06-628DE278339D} = {AC230910-CDEC-4AEE-9AC2-CC8BC4D6D913}
 		{98050F1F-F44E-4202-8F50-E536FEDF1E5A} = {646642EB-1A98-471F-981B-E3765D5786A5}
 		{40F40486-0CC9-48A0-8CE0-30EEC6CA4400} = {5FAEA788-3C55-4201-A4DC-B3BD68F9A6D4}
 		{8CA9CC64-5BE8-4375-96EC-50E7FBD42751} = {6FC8E486-C16D-4B11-8666-B164760CE81D}
